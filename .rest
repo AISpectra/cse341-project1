@@ -4,5 +4,5 @@ GET http://localhost:8080/
 ### Get all contacts
 GET http://localhost:8080/contacts
 
-### Get single contact (replace id)
+### Get a single contact
 GET http://localhost:8080/contacts/single?id=69600e9c58c73ba70574320a
