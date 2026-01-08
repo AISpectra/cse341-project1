@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET single contact by id (query param ?id=...)
+// GET single contact by id
 router.get("/single", async (req, res) => {
   try {
     const { id } = req.query;
@@ -31,7 +31,7 @@ router.get("/single", async (req, res) => {
 
     res.status(200).json(result);
   } catch (err) {
-    // si el id no es válido, ObjectId revienta
+    
     res.status(400).json({ message: "Invalid id format" });
   }
 });
