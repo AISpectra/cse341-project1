@@ -5,4 +5,4 @@ GET http://localhost:8080/
 GET http://localhost:8080/contacts
 
 ### Get single contact (replace id)
-GET http://localhost:8080/contacts/single?id=REPLACE_WITH_OBJECT_ID
+GET http://localhost:8080/contacts/single?id=69600e9c58c73ba70574320a
