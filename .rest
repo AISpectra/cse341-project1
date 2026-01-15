@@ -53,3 +53,44 @@ DELETE http://localhost:8080/contacts/{{id}}
 
 ### Confirm deletion (should be 404)
 GET http://localhost:8080/contacts/{{id}}
+
+
+### =========================
+### CONTACTS - RENDER
+### =========================
+
+### Get all contacts (Render)
+GET https://cse341-riw4.onrender.com/contacts
+
+### Create contact (Render)
+POST https://cse341-riw4.onrender.com/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Samuel",
+  "lastName": "Exposito Ruiz",
+  "email": "samuel.render@example.com",
+  "favoriteColor": "Blue",
+  "birthday": "1995-01-01"
+}
+
+### Copy the returned id and paste it here:
+@rid = PASTE_RENDER_ID_HERE
+
+### Get by id (Render)
+GET https://cse341-riw4.onrender.com/contacts/{{rid}}
+
+### Update (Render)
+PUT https://cse341-riw4.onrender.com/contacts/{{rid}}
+Content-Type: application/json
+
+{
+  "firstName": "Samuel",
+  "lastName": "Exposito Ruiz",
+  "email": "samuel.render.updated@example.com",
+  "favoriteColor": "Black",
+  "birthday": "1995-01-01"
+}
+
+### Delete (Render)
+DELETE https://cse341-riw4.onrender.com/contacts/{{rid}}
