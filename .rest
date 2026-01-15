@@ -1,8 +1,55 @@
 ### Root
 GET http://localhost:8080/
 
+### Health (opcional, si lo dejaste en server.js)
+GET http://localhost:8080/health
+
+
+### =========================
+### CONTACTS - LOCAL
+### =========================
+
 ### Get all contacts
 GET http://localhost:8080/contacts
 
-### Get a single contact
-GET http://localhost:8080/contacts/single?id=69600e9c58c73ba70574320a
+
+### Create a new contact (POST) - MUST return { "id": "..." }
+POST http://localhost:8080/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Samuel",
+  "lastName": "Exposito Ruiz",
+  "email": "samuel@example.com",
+  "favoriteColor": "Blue",
+  "birthday": "1995-01-01"
+}
+
+### 🔴 IMPORTANT:
+### After running the POST above, copy the returned "id" and paste it below:
+@id = PASTE_NEW_ID_HERE
+
+
+### Get a single contact by id (GET)
+GET http://localhost:8080/contacts/{{id}}
+
+
+### Update a contact by id (PUT) - should return 204
+PUT http://localhost:8080/contacts/{{id}}
+Content-Type: application/json
+
+{
+  "firstName": "Samuel",
+  "lastName": "Exposito Ruiz",
+  "email": "samuel.updated@example.com",
+  "favoriteColor": "Black",
+  "birthday": "1995-01-01"
+}
+
+
+### Delete a contact by id (DELETE) - should return 204
+DELETE http://localhost:8080/contacts/{{id}}
+
+
+### Confirm deletion (should be 404)
+GET http://localhost:8080/contacts/{{id}}

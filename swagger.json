@@ -1,0 +1,182 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contacts API",
+    "version": "2.0.0",
+    "description": "API for storing and retrieving contacts in MongoDB (CSE341 W02 Project)."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local"
+    },
+    {
+      "url": "https://TU-PROYECTO.onrender.com",
+      "description": "Production (Render)"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "summary": "Get all contacts",
+        "tags": ["Contacts"],
+        "responses": {
+          "200": {
+            "description": "List of contacts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Contact" }
+                }
+              }
+            }
+          },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "summary": "Create a new contact",
+        "tags": ["Contacts"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ContactInput" },
+              "examples": {
+                "example": {
+                  "value": {
+                    "firstName": "Samuel",
+                    "lastName": "Exposito Ruiz",
+                    "email": "samuel@example.com",
+                    "favoriteColor": "Blue",
+                    "birthday": "1995-01-01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created (returns new contact id)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string", "example": "65f1c2a9b3f4a3b5c7d8e9f0" }
+                  },
+                  "required": ["id"]
+                }
+              }
+            }
+          },
+          "400": { "description": "Missing required fields" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "summary": "Get a contact by id",
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A contact",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Contact" }
+              }
+            }
+          },
+          "400": { "description": "Invalid id format" },
+          "404": { "description": "Contact not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "summary": "Update a contact by id",
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ContactInput" }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Updated successfully (no content)" },
+          "400": { "description": "Invalid id format or missing required fields" },
+          "404": { "description": "Contact not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contact by id",
+        "tags": ["Contacts"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "MongoDB ObjectId"
+          }
+        ],
+        "responses": {
+          "204": { "description": "Deleted successfully (no content)" },
+          "400": { "description": "Invalid id format" },
+          "404": { "description": "Contact not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "description": "MongoDB ObjectId" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "favoriteColor": { "type": "string" },
+          "birthday": { "type": "string", "example": "1995-01-01" }
+        },
+        "required": ["firstName", "lastName", "email", "favoriteColor", "birthday"]
+      },
+      "ContactInput": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "favoriteColor": { "type": "string" },
+          "birthday": { "type": "string", "example": "1995-01-01" }
+        },
+        "required": ["firstName", "lastName", "email", "favoriteColor", "birthday"]
+      }
+    }
+  }
+}
