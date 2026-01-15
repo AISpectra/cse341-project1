@@ -1,7 +1,7 @@
 ### Root
 GET http://localhost:8080/
 
-### Health (opcional, si lo dejaste en server.js)
+### Health 
 GET http://localhost:8080/health
 
 
